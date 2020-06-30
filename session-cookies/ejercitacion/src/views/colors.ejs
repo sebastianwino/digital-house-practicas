@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	<link rel="stylesheet" href="/css/app.css">
+</head>
+<body style="background-color: <%- color %>"> 
+    <div class="container">
+        <h1>Elección del color</h1>
+    
+        <form action="" method="GET">
+            <select class="custom-select" name="bgColor">
+                <option class="title" selected>Color de la web</option>
+                <option class="azul" value="blue">Azul</option>
+                <option class="rojo" value="red">Rojo</option>
+                <option class="verde" value="green">Verde</option>
+            </select><br></br>
+            <button class="btn btn-primary" type="submit">Seleccionar color</button>
+        </form>
+    </div>
+</body>
+</html>
