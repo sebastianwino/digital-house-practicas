@@ -1,5 +1,5 @@
 module.exports = (sequelize, dataTypes) => {
-    let alias = "Movies";
+    let alias = "Genres";
     let cols = {
         id: {
             type: dataTypes.INTEGER.UNSIGNED,
@@ -7,35 +7,30 @@ module.exports = (sequelize, dataTypes) => {
             autoIncrement: true,
             allowNull: false
         },
-        title: {
+        name: {
             type: dataTypes.STRING,
             allowNull: false
         },
-        rating: {
-            type: dataTypes.DECIMAL.UNSIGNED,
-            allowNull: false
-        },
-        awards: {
+        ranking: {
             type: dataTypes.INTEGER.UNSIGNED,
             allowNull: false
-        },
-        release_date: {
-            type: dataTypes.DATE,
-            allowNull: false
-        },
-        length: {
-            type: dataTypes.INTEGER.UNSIGNED
-        },
-
+        }
 
     };
     let config = {
-        tableName: "movies",
+        tableName: "genres",
         timestamps: false,
         underscored: true,
     }
 
-    const Movies = sequelize.define(alias, cols, config);
+    const Genre = sequelize.define(alias, cols, config);
 
-    return Movies
+    Genre.associate = models => {
+        Genre.hasMany(models.Movies, {
+            as: 'movies',
+            foreignKey: 'genre_id'
+        })
+    }
+
+    return Genre
 }

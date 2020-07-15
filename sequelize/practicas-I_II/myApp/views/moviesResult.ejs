@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movies List</title>
+    <title>Movies</title>
 </head>
 <body>
-    <h1>New movies</h1>
+    <h1>Movies: search results</h1>
     <ul>
         <% movies.forEach(movie => { %>
             <li>    
@@ -16,6 +16,9 @@
             </li>
         <% }) %>
     </ul>
+
     <%- include('partials/searchForm.ejs') %>
+    <br>
+    <a href="/movies"><button type="">Back to Movies List</button></a>
 </body>
 </html>

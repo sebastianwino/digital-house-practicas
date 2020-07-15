@@ -12,28 +12,13 @@ let moviesControllers = {
             })
 
     },
-    add: (req, res) => {
-
-    },
-    create: (req, res) => {
-
-    },
-    /* A terminar */
-    delete: (req, res) => {
-        db.Movies.findByPk(req.params.id)
-
-
-        .then(movieToDelete => {
-            res.send('Movie deleted')
-        })
-        .catch(errors => {
-            console.log(errors)
-            res.send('Error!!!')
-        })
-
-    },
     detail: (req, res) => {
-        db.Movies.findByPk(req.params.id)
+        db.Movies.findByPk(req.params.id, {
+            include: [
+                {association: 'genres'},
+                {association: 'actors'}
+            ]
+        })
             .then(movieDetail => {
                 res.render('movieDetail', {movie: movieDetail})
             })
@@ -42,6 +27,58 @@ let moviesControllers = {
                 res.send('Error!!!')
             })
 
+    },
+    add: (req, res) => {
+        res.render('createMovie')
+    },
+    create: (req, res) => {
+        db.Movies.create({
+            title: req.body.title,
+            rating: req.body.rating,
+            awards: req.body.awards,
+            release_date: req.body.release_date,
+            length: req.body.length 
+        })
+
+        res.redirect('/movies')
+
+    },
+    edit: (req, res) => {
+        db.Movies.findByPk(req.params.id, {
+            include: [{association: 'genres'}]
+        })
+            .then(movieToEdit => {
+                res.render('editMovie', {movie: movieToEdit})
+            })
+            .catch(errors => {
+                console.log(errors)
+                res.send('Error!!!')
+            })
+    },
+    update: (req, res) => {
+        db.Movies.update({
+            title: req.body.title,
+            rating: req.body.rating,
+            awards: req.body.awards,
+            release_date: req.body.release_date,
+            length: req.body.length 
+        },  {
+            where: {
+                id: req.params.id
+            }
+        })
+
+        res.redirect('/movies/detail/' + req.params.id)
+
+    },
+    delete: (req, res) => {
+        db.Movies.destroy({
+            where: {
+                id: req.params.id
+            }
+        })
+
+        res.redirect('/movies')
     },
     drama: (req, res) => {
         db.Movies.findAll({
@@ -100,7 +137,7 @@ let moviesControllers = {
             })
 
     },
-    /* Corregir */
+    
     search: (req, res) => {
         db.Movies.findAll({
             where: {

@@ -15,12 +15,15 @@ router.get('/new', moviesControllers.new)
 
 router.get('/recommended', moviesControllers.recommended)
 
-router.post('/search', moviesControllers.search)
+router.get('/search', moviesControllers.search)
 
-router.delete('/delete/:id', moviesControllers.delete)
+router.get('/add', moviesControllers.add)
+router.post('/add', moviesControllers.create)
 
+router.get('/edit/:id', moviesControllers.edit)
+router.post('/edit/:id', moviesControllers.update)
 
-
+router.post('/delete/:id', moviesControllers.delete)
 
 
 module.exports = router

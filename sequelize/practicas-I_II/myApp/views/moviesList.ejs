@@ -6,15 +6,20 @@
     <title>Movies List</title>
 </head>
 <body>
-    <h1>Listado de películas de Drama</h1>
+    <h1>Movies</h1>
     <ul>
         <% movies.forEach(movie => { %>
             <li>    
-                <a href="/movies/detail/<%= movie.id %> ">
+                <a href="/movies/detail/<%= movie.id %>">
                     <%= movie.title %> 
                 </a>
             </li>
         <% }) %>
     </ul>
+
+    <a href="/movies/add"><button type="">Add a new Movie</button></a>
+    <br><br>
+    
+    <%- include('partials/searchForm.ejs') %>
 </body>
 </html>

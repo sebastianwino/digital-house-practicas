@@ -6,7 +6,7 @@
     <title>Movies List</title>
 </head>
 <body>
-    <h1>Recommended movies</h1>
+    <h1>New movies</h1>
     <ul>
         <% movies.forEach(movie => { %>
             <li>    
@@ -16,7 +16,8 @@
             </li>
         <% }) %>
     </ul>
-
     <%- include('partials/searchForm.ejs') %>
+    <br>
+    <a href="/movies"><button type="">Back to Movies List</button></a>
 </body>
 </html>
