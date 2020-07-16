@@ -8,7 +8,7 @@ module.exports = (sequelize, dataTypes) => {
             allowNull: false
         },
         name: {
-            type: dataTypes.STRING,
+            type: dataTypes.STRING(100),
             allowNull: false
         },
         ranking: {

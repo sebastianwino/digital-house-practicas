@@ -8,11 +8,11 @@ module.exports = (sequelize, dataTypes) => {
             allowNull: false
         },
         first_name: {
-            type: dataTypes.STRING,
+            type: dataTypes.STRING(100),
             allowNull: false
         },
         last_name: {
-            type: dataTypes.STRING,
+            type: dataTypes.STRING(100),
             allowNull: false
         },
         rating: {

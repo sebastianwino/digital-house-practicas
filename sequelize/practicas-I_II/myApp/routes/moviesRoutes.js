@@ -3,27 +3,22 @@ var router = express.Router();
 
 const moviesControllers = require('../controllers/moviesControllers')
 
+const moviesValidation = require('../validations/moviesValidatios')
+
+
+
 router.get('/', moviesControllers.list)
 
-router.get('/drama', moviesControllers.drama)
-
-router.get('/totalTime', moviesControllers.totalTime)
-
-router.get('/detail/:id', moviesControllers.detail)
-
-router.get('/new', moviesControllers.new)
-
-router.get('/recommended', moviesControllers.recommended)
-
-router.get('/search', moviesControllers.search)
-
-router.get('/add', moviesControllers.add)
+router.get('/add', moviesValidation, moviesControllers.add)
 router.post('/add', moviesControllers.create)
 
-router.get('/edit/:id', moviesControllers.edit)
-router.post('/edit/:id', moviesControllers.update)
+router.get('/:id', moviesControllers.detail)
 
-router.post('/delete/:id', moviesControllers.delete)
+router.get('/:id/form', moviesControllers.edit)
+router.put('/:id', moviesControllers.update)
 
+router.delete('/:id', moviesControllers.delete)
+
+router.get('/search', moviesControllers.search)
 
 module.exports = router

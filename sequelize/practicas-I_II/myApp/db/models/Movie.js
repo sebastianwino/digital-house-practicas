@@ -8,7 +8,7 @@ module.exports = (sequelize, dataTypes) => {
             allowNull: false
         },
         title: {
-            type: dataTypes.STRING,
+            type: dataTypes.STRING(500),
             allowNull: false
         },
         rating: {
@@ -26,20 +26,22 @@ module.exports = (sequelize, dataTypes) => {
         length: {
             type: dataTypes.INTEGER.UNSIGNED
         },
-
-
+        deleted_at: {
+            type: dataTypes.DATE,
+        }
     };
     let config = {
         tableName: "movies",
         timestamps: false,
         underscored: true,
+        paranoid: true
     }
 
     const Movie = sequelize.define(alias, cols, config);
 
     Movie.associate = models => {
         Movie.belongsTo(models.Genres, {
-            as: 'genres',
+            as: 'genre',
             foreignKey: 'genre_id'
         })
 

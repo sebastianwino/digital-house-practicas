@@ -1,10 +1,12 @@
 let db = require('../db/models')
 
+/* Terminar validaciones */
+
 let moviesControllers = {
     list: (req, res) => {
         db.Movies.findAll()
             .then(movies => {
-                res.render('moviesList', {movies: movies})
+                res.render('movies/moviesList', {movies: movies})
             })
             .catch(errors => {
                 console.log(errors)
@@ -15,12 +17,16 @@ let moviesControllers = {
     detail: (req, res) => {
         db.Movies.findByPk(req.params.id, {
             include: [
-                {association: 'genres'},
+                {association: 'genre'},
                 {association: 'actors'}
             ]
         })
             .then(movieDetail => {
-                res.render('movieDetail', {movie: movieDetail})
+                if(movieDetail) {
+                    res.render('movies/movieDetail', {movie: movieDetail})
+                } else {
+                    res.redirect('/no-encontrado');
+                }
             })
             .catch(errors => {
                 console.log(errors)
@@ -29,7 +35,14 @@ let moviesControllers = {
 
     },
     add: (req, res) => {
-        res.render('createMovie')
+        db.Genres.findAll()
+            .then(genres => {
+                res.render('movies/createMovie', {genres: genres})
+            })
+            .catch(errors => {
+                console.log(errors)
+                res.send('Error!!!')
+            })
     },
     create: (req, res) => {
         db.Movies.create({
@@ -37,18 +50,26 @@ let moviesControllers = {
             rating: req.body.rating,
             awards: req.body.awards,
             release_date: req.body.release_date,
-            length: req.body.length 
+            length: req.body.length,
+            genre_id: req.body.genre_id
         })
 
         res.redirect('/movies')
 
     },
     edit: (req, res) => {
-        db.Movies.findByPk(req.params.id, {
-            include: [{association: 'genres'}]
+        let movieEdit = db.Movies.findByPk(req.params.id, {
+            include: [{association: 'genre'}]
         })
-            .then(movieToEdit => {
-                res.render('editMovie', {movie: movieToEdit})
+        let genresEdit = db.Genres.findAll()
+        
+        Promise.all([movieEdit, genresEdit])
+            .then(([movie, genres]) => {
+                if(movie) {
+                    res.render('movies/editMovie', {movie: movie, genres: genres})
+                } else {
+                    res.redirect('/no-encontrado');
+                }
             })
             .catch(errors => {
                 console.log(errors)
@@ -61,14 +82,15 @@ let moviesControllers = {
             rating: req.body.rating,
             awards: req.body.awards,
             release_date: req.body.release_date,
-            length: req.body.length 
+            length: req.body.length,
+            genre_id: req.body.genre_id
         },  {
             where: {
                 id: req.params.id
             }
         })
 
-        res.redirect('/movies/detail/' + req.params.id)
+        res.redirect('/movies/' + req.params.id)
 
     },
     delete: (req, res) => {
@@ -80,64 +102,7 @@ let moviesControllers = {
 
         res.redirect('/movies')
     },
-    drama: (req, res) => {
-        db.Movies.findAll({
-            where: {
-                genre_id: 3
-            }
-        })
-            .then(movies => {
-                res.render('moviesDrama', {movies: movies})
-            })
-            .catch(errors => {
-                console.log(errors)
-                res.send('Error!!!')
-            })
-
-    },
-    recommended: (req, res) => {
-        db.Movies.findAll({
-            where: {
-                rating: {[db.Sequelize.Op.gte] : 8}
-            }
-        })
-            .then(movies => {
-                res.render('topMovies', {movies: movies})
-            })
-            .catch(errors => {
-                console.log(errors)
-                res.send('Error!!!')
-            })
-
-    },
-    totalTime: (req, res) => {
-        db.Movies.sum("length")
-            .then(moviesTotalTimes => {
-                res.render('moviesTotalTimes', {moviesTotalTimes: moviesTotalTimes})
-            })
-            .catch(errors => {
-                console.log(errors)
-                res.send('Error!!!')
-            })
-
-    },
-    new: (req, res) => {
-        db.Movies.findAll({
-            order: [
-                ["release_date", "DESC"]
-            ],
-            limit: 5
-        })
-            .then(newMovies => {
-                res.render('newMovies', {movies: newMovies})
-            })
-            .catch(errors => {
-                console.log(errors)
-                res.send('Error!!!')
-            })
-
-    },
-    
+       
     search: (req, res) => {
         db.Movies.findAll({
             where: {
@@ -147,7 +112,7 @@ let moviesControllers = {
             }
         })
             .then(moviesResult => {
-                res.render('moviesResult', {movies: moviesResult})
+                res.render('movies/moviesResult', {movies: moviesResult})
             })
             .catch(errors => {
                 console.log(errors)
