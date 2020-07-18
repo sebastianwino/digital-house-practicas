@@ -1,6 +1,8 @@
 let db = require('../db/models')
 
 /* Terminar validaciones */
+const { validationResult } = require('express-validator');
+
 
 let moviesControllers = {
     list: (req, res) => {
@@ -45,16 +47,34 @@ let moviesControllers = {
             })
     },
     create: (req, res) => {
-        db.Movies.create({
-            title: req.body.title,
-            rating: req.body.rating,
-            awards: req.body.awards,
-            release_date: req.body.release_date,
-            length: req.body.length,
-            genre_id: req.body.genre_id
-        })
-
-        res.redirect('/movies')
+        let errors = validationResult(req)
+        if (errors.isEmpty()) {
+            let genre
+            if (req.body.genre_id) {
+                genre = req.body.genre_id
+            } else {
+                genre = null
+            }
+            db.Movies.create({
+                title: req.body.title,
+                rating: req.body.rating,
+                awards: req.body.awards,
+                release_date: req.body.release_date,
+                length: req.body.length,
+                genre_id: genre
+            })
+            return res.redirect('/movies')    
+        } else {
+            db.Genres.findAll()
+                .then(genres => {
+                    res.render('movies/createMovie', {genres: genres, errors: errors.errors})
+                })
+                .catch(errors => {
+                    console.log(errors)
+                    res.send('Error!!!')
+                })
+        }
+     
 
     },
     edit: (req, res) => {
@@ -77,20 +97,48 @@ let moviesControllers = {
             })
     },
     update: (req, res) => {
-        db.Movies.update({
-            title: req.body.title,
-            rating: req.body.rating,
-            awards: req.body.awards,
-            release_date: req.body.release_date,
-            length: req.body.length,
-            genre_id: req.body.genre_id
-        },  {
-            where: {
-                id: req.params.id
+        let errors = validationResult(req)
+        if (errors.isEmpty()) {
+            let genre
+            if (req.body.genre_id) {
+                genre = req.body.genre_id
+            } else {
+                genre = null
             }
-        })
+            db.Movies.update({
+                title: req.body.title,
+                rating: req.body.rating,
+                awards: req.body.awards,
+                release_date: req.body.release_date,
+                length: req.body.length,
+                genre_id: genre
+            },  {
+                where: {
+                    id: req.params.id
+                }
+            })
 
-        res.redirect('/movies/' + req.params.id)
+            res.redirect('/movies/' + req.params.id)    
+
+        } else {
+            let movieEdit = db.Movies.findByPk(req.params.id, {
+                include: [{association: 'genre'}]
+            })
+            let genresEdit = db.Genres.findAll()
+            
+            Promise.all([movieEdit, genresEdit])
+                .then(([movie, genres]) => {
+                    if(movie) {
+                        res.render('movies/editMovie', {movie: movie, genres: genres, errors: errors.errors})
+                    } else {
+                        res.redirect('/no-encontrado');
+                    }
+                })
+                .catch(errors => {
+                    console.log(errors)
+                    res.send('Error!!!')
+                })
+        }
 
     },
     delete: (req, res) => {

@@ -4,8 +4,9 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var methodOverride = require('method-override');
+var session = require('express-session');
 
-
+// own routes
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var moviesRouter = require('./routes/moviesRoutes')
@@ -20,8 +21,9 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '../public')));
 app.use(methodOverride('_method'));
+app.use(session({secret: 'mensaje oculto', saveUninitialized: true, resave: true}));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

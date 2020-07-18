@@ -12,6 +12,18 @@
 <body>
     <div>
         <h1>Add Movie</h1>
+        <div class="show-errors">
+            <% if (typeof errors != 'undefined') { %>
+             <p style="color: red">ERROR</p>
+             <ul>
+                <% errors.forEach(error => { %>
+                    <li>
+                        <%= error.msg %> 
+                    </li>
+                <% }) %>
+             </ul>
+            <% } %>
+        </div>
         <form action="/movies/add" method="POST">
             <div>
                 <label for="title">Title:</label>
@@ -27,7 +39,7 @@
             </div><br>
             <div>
                 <label for="release_date">Release date:</label>
-                <input type="date" name="release_date" id="release_date">
+                <input type="date" name="release_date" id="release_date" value="2020-07-18">
             </div><br>
             <div>
                 <label for="length">Length:</label>
