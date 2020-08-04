@@ -86,7 +86,6 @@ let apiMoviesController = {
                 res.json({mesagge: "Deleted"})
             })
     }
-
 }
 
 module.exports = apiMoviesController
