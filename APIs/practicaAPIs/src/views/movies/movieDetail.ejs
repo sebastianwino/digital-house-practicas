@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= movie.title %> | Movie Detail</title>
+</head>
+
+<body>
+    <h1><%= movie.title %></h1>
+    <ul>
+        <% if (movie.genre) { %>
+         <li>Genre: <%= movie.genre.name %> </li>
+        <% } else { %>
+            <li>Genre: undefined </li>
+
+        <% } %> 
+        <li>Rating: <%= movie.rating %> </li>
+        <li>Awards: <%= movie.awards %> </li>
+        <li>Length: <%= movie.length %> minutes</li>
+        <li>Release date: <%= movie.release_date %> </li>
+        <li>Actors:
+            <ul>
+                <% movie.actors.forEach(actor => { %>
+                    <li><%= actor.first_name + " " + actor.last_name %> </li>
+                <% }) %>
+            </ul> 
+
+        </li>
+    </ul>
+    <a href="/movies/<%= movie.id %>/form">
+       <button type="submit" style="background-color: yellowgreen; color: white;">EDIT MOVIE</button>
+    </a>
+    <br><br>
+    <form action="/movies/<%= movie.id %>?_method=DELETE" method="POST">
+        <button type="submit" style="background-color: rgb(158, 0, 0); color: white;">DELETE MOVIE</button>
+    </form>
+    <br>
+
+    <%- include('moviesPartials/searchForm.ejs') %>
+    <br>
+    <a href="/movies"><button type="">Back to Movies List</button></a>
+    <br><br>    
+
+</body>
+
+</html>

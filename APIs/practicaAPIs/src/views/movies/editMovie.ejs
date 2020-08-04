@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Movie</title>
+</head>
+
+<!-- Terminar validaciones y mostrar errores -->
+
+<body>
+    <div>
+        <h1>Edit Movie</h1>
+        <div class="show-errors">
+            <% if (typeof errors != 'undefined') { %>
+             <p style="color: red">ERROR</p>
+             <ul>
+                <% errors.forEach(error => { %>
+                    <li>
+                        <%= error.msg %> 
+                    </li>
+                <% }) %>
+             </ul>
+            <% } %>
+        </div>
+        <form action="/movies/<%= movie.id %>?_method=PUT" method="POST">
+            <div>
+                <label for="title">Title:</label>
+                <input value="<%= movie.title %>" type="text" name="title" id="title">
+            </div><br>
+            <div>
+                <label for="rating">Rating:</label>
+                <input value="<%= movie.rating %>" type="text" name="rating" id="rating">
+            </div><br>
+            <div>
+                <label for="awards">Awards:</label>
+                <input value="<%= movie.awards %>" type="text" name="awards" id="awards">
+            </div><br>
+            <div>
+                <label for="release_date">Release date:</label>
+                <input value="<%= movie.release_date %>" type="date" name="release_date" id="release_date">
+            </div><br>
+            <div>
+                <label for="length">Length:</label>
+                <input value="<%= movie.length %>" type="text" name="length">
+            </div><br>
+            <div>
+                <label for="genre_id">Genre:</label>
+                <select name="genre_id" id="genre_id">
+                    <option value="">Select a genre</option>
+                    <% genres.forEach(genre => { %>
+                        <% if (movie.genre && genre.id == movie.genre.id) { %>
+                            <option selected value="<%= genre.id %>"><%= genre.name %></option>
+                        <% } else { %>
+                            <option value="<%= genre.id %>"><%= genre.name %></option>
+                        <% } %>
+                    <% }) %>
+                </select>
+            </div><br>
+            <div>
+                <button style="background-color: green; color: white;" type="submit">Edit Movie</button>
+                <button style="background-color: yellow;" type="reset">Reset changes</button>
+            </div><br>
+        </form>
+    </div>
+    <br>
+
+    <%- include('moviesPartials/searchForm.ejs') %>
+    <br>
+    <a href="/movies/<%= movie.id %>"><button type="">Back to Movie Detail</button></a><br><br>
+
+    <a href="/movies"><button type="">Back to Movies List</button></a>
+    <br><br>   
+</body>
+
+</html>
