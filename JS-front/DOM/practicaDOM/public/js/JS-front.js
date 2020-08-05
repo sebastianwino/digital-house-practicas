@@ -14,7 +14,7 @@ let articleHobbies = document.querySelector('article.hobbies')
 if (confirmacionEntrarAlSitio) {
     h2Bienvenida.innerText = 'Qué alegría que quieras continuar tu visita por este maravilloso sitio'
 
-   /*  let nombreUsuario = ''
+    let nombreUsuario = ''
     do {
         nombreUsuario = prompt('Cuál es tu nombre?')
     } while (nombreUsuario.length == 0)
@@ -31,7 +31,7 @@ if (confirmacionEntrarAlSitio) {
     if (edadUsuario < 18) {
         document.getElementsByClassName('container-general')[0].style.display = 'none'
         document.getElementById('accesoDenegado').style.display = 'block'
-    } */
+    }
 
     let hobbies
     do {
@@ -62,15 +62,16 @@ if (confirmacionEntrarAlSitio) {
 
     articleHobbies.innerHTML += '</ol>'
 
+    Array.from(document.querySelectorAll('a')).forEach(a => {
+        a.style.textDecoration = 'none'
+            
+    })
 
     let colorPreferido = prompt('Cuál es tu color preferido?')
 
-    h1.querySelector('span').classList.add('color-preferido')
+    let nombreSpan = h1.querySelector('span')
     
-    Array.from(document.querySelectorAll('a')).forEach(a => {
-        a.style.textDecoration = 'none'
-        
-    })
+    nombreSpan.classList.add('color-preferido')
 
     
 } else {
