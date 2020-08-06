@@ -1,11 +1,13 @@
 var express = require('express');
 var router = express.Router();
 
-const mainControllers = require('../controllers/mainControllers')
+const mainController = require('../controllers/mainController')
 
 /* GET home page. */
-router.get('/', mainControllers.index);
+router.get('/', mainController.index);
 
-router.get('/events', mainControllers.events);
+router.get('/events', mainController.events);
+
+router.get('/clock', mainController.clock);
 
 module.exports = router;

@@ -1,4 +1,4 @@
-window.onload = () => {
+window.addEventListener('load', () => {
   
     let abracadabra = document.getElementById('abracadabra')
 
@@ -21,9 +21,8 @@ window.onload = () => {
 
     
     function colorAlAzar() {
-        /* let colors = ['red', 'blue', 'green', 'pink', 'orange']
-
-        let n = Math.floor(Math.random()*5) */
+        // let colors = ['red', 'blue', 'green', 'pink', 'orange']
+        // let n = Math.floor(Math.random()*5)
 
         let n = "#"+((1<<24)*Math.random()|0).toString(16)
 
@@ -44,7 +43,6 @@ window.onload = () => {
     })
 
     recentWork.addEventListener('mouseover', function() {
-        console.log('Pasó!!!')
         parrafoRecentWork.style.color = colorAlAzar()
     })
 
@@ -52,4 +50,29 @@ window.onload = () => {
         parrafoRecentWork.style.color = '#888'
     })
 
-}
+
+    window.addEventListener('keyup', (e) => {
+        switch (e.which) {
+            case 83 : estadoSecreto = 1; break;
+            case 69 : 
+                if(estadoSecreto == 1) {
+                    estadoSecreto = 2;
+                } else if (estadoSecreto == 4) {
+                    estadoSecreto = 5;
+                }
+                break;
+            case 67 : estadoSecreto = 1; break;
+            case 82 : estadoSecreto = 1; break;
+            case 84 : estadoSecreto = 1; break;
+            case 79 :
+                estadoSecreto = 7;
+                alert('SECRETO MÁGICO')
+                break;
+            default:
+                estadoSecreto = 0
+        }
+    })
+
+
+
+})

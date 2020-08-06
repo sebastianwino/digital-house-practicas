@@ -4,6 +4,9 @@ let mainControllers = {
     },
     events: (req, res) => {
         res.render('events')
+    },
+    clock: (req, res) => {
+        res.render('clock')
     }
 }
 
