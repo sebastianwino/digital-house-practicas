@@ -4,13 +4,13 @@ window.onload = () => {
     let hoursPart = document.getElementById('hours')
     let minutesPart = document.getElementById('minutes')
     let secondsPart = document.getElementById('seconds')
-    let chronometerCall
+    let chronometerCall = false
 
     function chronometer() {
 
-        let seconds
-        let minutes
-        let hours
+        let seconds = 0
+        let minutes = 0
+        let hours = 0
 
         seconds++
 
