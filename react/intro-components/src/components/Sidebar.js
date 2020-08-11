@@ -33,10 +33,10 @@ function Sidebar() {
 			<SidebarItem icon="folder" name="Pages" link="collapsed" />
 
 			{/* <!--Sidebar Item - Charts --> */}
-            <SidebarItem icon="chart-area" name="Charts" link="" />
+            <SidebarItem icon="chart-area" name="Charts" />
 			
 			{/* <!--Sidebar Item - Tables --> */}
-            <SidebarItem icon="table" name="Tables" link="" />
+            <SidebarItem icon="table" name="Tables"/>
 
 			{/* <!-- Divider --> */}
 			<hr className="sidebar-divider d-none d-md-block" />

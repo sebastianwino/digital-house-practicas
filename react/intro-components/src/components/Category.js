@@ -3,11 +3,11 @@ import React from 'react'
 function Category(promps) {
     return (
         <>
-            {promps.categories.map(category =>
-                <div class="col-lg-6 mb-4">
-                    <div class="card bg-info text-white shadow">
-                        <div class="card-body">
-                            {category}
+            {promps.categories.map((category, i) =>
+                <div className="col-lg-6 mb-4" key={category + i}>
+                    <div className="card bg-info text-white shadow">
+                        <div className="card-body">
+                            Category {category}
                         </div>
                     </div>
                 </div>

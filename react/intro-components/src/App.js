@@ -19,7 +19,7 @@ function App() {
                 {/* <!-- End of Sidebar --> */}
 
                 {/* <!-- Content Wrapper --> */}
-                <div id="content-wrapper" class="d-flex flex-column">
+                <div id="content-wrapper" className="d-flex flex-column">
 
                     {/* <!-- Main Content --> */}
                     <div id="content">
@@ -29,15 +29,15 @@ function App() {
                         {/* <!-- End of Topbar --> */}
 
                         {/* <!-- Begin Page Content --> */}
-                        <div class="container-fluid">
+                        <div className="container-fluid">
 
                             {/* <!-- Page Heading --> */}
-                            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                                <h1 class="h3 mb-0 text-gray-800">App Dashboard</h1>
+                            <div className="d-sm-flex align-items-center justify-content-between mb-4">
+                                <h1 className="h3 mb-0 text-gray-800">App Dashboard</h1>
                             </div>
 
                             {/* <!-- Content Row --> */}
-                            <div class="row">
+                            <div className="row">
                                 {/* <!-- Amount of Products in DB --> */}
                                 <Static color="primary" title="Products in Data Base" number="135" icon="clipboard-list" />
 
@@ -49,16 +49,16 @@ function App() {
                             </div>
 
                             {/* <!-- Content Row --> */}
-                            <div class="row">
+                            <div className="row">
                                 {/* <!-- Last Product in DB --> */}
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card shadow mb-4">
-                                        <div class="card-header py-3">
-                                            <h6 class="m-0 font-weight-bold text-primary">Last product in Data Dase</h6>
+                                <div className="col-lg-6 mb-4">
+                                    <div className="card shadow mb-4">
+                                        <div className="card-header py-3">
+                                            <h6 className="m-0 font-weight-bold text-primary">Last product in Data Dase</h6>
                                         </div>
-                                        <div class="card-body">
-                                            <div class="text-center">
-                                                <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style= {{width: "25rem"}} src="images/product_dummy.svg" alt="image dummy" />
+                                        <div className="card-body">
+                                            <div className="text-center">
+                                                <img className="img-fluid px-3 px-sm-4 mt-3 mb-4" style={{width: "25rem"}} src="images/product_dummy.svg" alt="dummy-img" />
                                             </div>
                                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores, consequatur explicabo officia inventore libero veritatis iure voluptate reiciendis a magnam, vitae, aperiam voluptatum non corporis quae dolorem culpa exercitationem ratione?</p>
                                             <a target="_blank" rel="nofollow" href="/">View product detail</a>
@@ -67,13 +67,13 @@ function App() {
                                 </div>
 
                                 {/* <!-- Categories in DB --> */}
-                                <div class="col-lg-6 mb-4">						
-                                    <div class="card shadow mb-4">
-                                        <div class="card-header py-3">
-                                            <h6 class="m-0 font-weight-bold text-primary">Categories in Data Base</h6>
+                                <div className="col-lg-6 mb-4">						
+                                    <div className="card shadow mb-4">
+                                        <div className="card-header py-3">
+                                            <h6 className="m-0 font-weight-bold text-primary">Categories in Data Base</h6>
                                         </div>
-                                        <div class="card-body">
-                                            <div class="row">
+                                        <div className="card-body">
+                                            <div className="row">
                                                 <Category categories={categories} />
                                             </div>
                                         </div>
