@@ -12,9 +12,6 @@ function SidebarItem(props) {
 			</li>
         </>
     )
-
-   
-
 }
 
 SidebarItem.defaultProps = {
